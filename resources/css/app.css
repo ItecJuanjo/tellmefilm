@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Colores del proyecto */
+.text-turquesa {
+  color: #00C2CB;
+}
+.bg-turquesa {
+  background-color: #00C2CB;
+}
+.bg-naranja {
+  background-color: #FF6F3F;
+}
+.text-naranja {
+  color: #FF6F3F;
+}
+.text-grisoscuro {
+  color: #2B2D42;
+}
+.bg-grisoscuro {
+  background-color: #2B2D42;
+}
+
+/* Fuente personalizada */
+.font-titulo {
+  font-family: 'Poppins', sans-serif;
+}
+.font-cuerpo {
+  font-family: 'Roboto', sans-serif;
+}
