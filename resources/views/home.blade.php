@@ -85,10 +85,8 @@
             </div>
         @endif
     </main>
+    <br><br>
 </div>
-
-<br>
-<br>
 
 {{-- Footer --}}
 <footer class="bg-gray-100 mt-24 text-center py-6 border-t border-gray-200">

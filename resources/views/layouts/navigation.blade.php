@@ -1,26 +1,25 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-naranja text-white border-b border-orange-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex items-center gap-6">
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('home') }}">
-                        <x-application-logo class="block h-10 w-auto fill-current text-turquesa" />
+                        <x-application-logo class="block h-10 w-auto fill-current text-white" />
                     </a>
                 </div>
 
                 <div class="hidden space-x-8 sm:flex">
-                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')" class="text-white hover:text-gray-200">
                         {{ __('Inicio') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('peliculas.index')" :active="request()->routeIs('peliculas.*')">
+                    <x-nav-link :href="route('peliculas.index')" :active="request()->routeIs('peliculas.*')" class="text-white hover:text-gray-200">
                         {{ __('Películas') }}
                     </x-nav-link>
 
                     @auth
-
                         @if (Auth::user()->role === 'admin')
-                            <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.*')">
+                            <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.*')" class="text-white hover:text-gray-200">
                                 {{ __('Admin') }}
                             </x-nav-link>
                         @endif
@@ -32,7 +31,7 @@
                 @auth
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
-                            <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 transition">
+                            <button class="flex items-center text-sm font-medium text-white hover:text-gray-200 transition">
                                 <div>{{ Auth::user()->name }}</div>
                                 <div class="ml-1">
                                     <svg class="fill-current h-4 w-4" viewBox="0 0 20 20">
@@ -54,57 +53,58 @@
                     </x-dropdown>
                 @else
                     <div class="flex gap-4">
-                        <a href="{{ route('login') }}" class="text-gray-500 hover:text-turquesa font-medium">Iniciar sesión</a>
-                        <a href="{{ route('register') }}" class="text-gray-500 hover:text-turquesa font-medium">Registrarse</a>
+                        <a href="{{ route('login') }}" class="text-white hover:text-gray-200 font-medium transition">Iniciar sesión</a>
+                        <a href="{{ route('register') }}" class="text-white hover:text-gray-200 font-medium transition">Registrarse</a>
                     </div>
                 @endauth
             </div>
         </div>
     </div>
 
+    {{-- Responsive --}}
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
+            <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')" class="text-white hover:text-gray-200">
                 {{ __('Inicio') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('peliculas.index')" :active="request()->routeIs('peliculas.*')">
+            <x-responsive-nav-link :href="route('peliculas.index')" :active="request()->routeIs('peliculas.*')" class="text-white hover:text-gray-200">
                 {{ __('Películas') }}
             </x-responsive-nav-link>
 
             @auth
-                <x-responsive-nav-link :href="route('perfil.edit')" :active="request()->routeIs('perfil.edit')">
+                <x-responsive-nav-link :href="route('perfil.edit')" :active="request()->routeIs('perfil.edit')" class="text-white hover:text-gray-200">
                     {{ __('Mi perfil') }}
                 </x-responsive-nav-link>
 
                 @if (Auth::user()->role === 'admin')
-                    <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.*')">
+                    <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.*')" class="text-white hover:text-gray-200">
                         {{ __('Admin') }}
                     </x-responsive-nav-link>
                 @endif
             @endauth
         </div>
 
-        <div class="pt-4 pb-1 border-t border-gray-200">
+        <div class="pt-4 pb-1 border-t border-orange-300">
             @auth
                 <div class="px-4">
-                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                    <div class="font-medium text-base text-white">{{ Auth::user()->name }}</div>
+                    <div class="font-medium text-sm text-orange-100">{{ Auth::user()->email }}</div>
                 </div>
 
                 <div class="mt-3 space-y-1">
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <x-responsive-nav-link :href="route('logout')"
-                                               onclick="event.preventDefault(); this.closest('form').submit();">
+                                               onclick="event.preventDefault(); this.closest('form').submit();" class="text-white hover:text-gray-200">
                             {{ __('Cerrar sesión') }}
                         </x-responsive-nav-link>
                     </form>
                 </div>
             @else
                 <div class="px-4 space-y-2">
-                    <a href="{{ route('login') }}" class="block text-gray-700 hover:text-turquesa">Iniciar sesión</a>
-                    <a href="{{ route('register') }}" class="block text-gray-700 hover:text-turquesa">Registrarse</a>
+                    <a href="{{ route('login') }}" class="block text-white hover:text-gray-200">Iniciar sesión</a>
+                    <a href="{{ route('register') }}" class="block text-white hover:text-gray-200">Registrarse</a>
                 </div>
             @endauth
         </div>
