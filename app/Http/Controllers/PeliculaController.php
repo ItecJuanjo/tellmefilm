@@ -15,6 +15,7 @@ class PeliculaController extends Controller
 
     public function index(Request $request)
 {
+    // Consulta básica de películas
     $query = Pelicula::query();
 
     // Aplicar el filtro de categoría
@@ -23,15 +24,22 @@ class PeliculaController extends Controller
     }
 
     // Aplicar búsqueda si hay
-    if ($request->has('buscar') && $request->buscar) {
-        $query->where('titulo', 'like', '%' . $request->buscar . '%')
-              ->orWhere('director', 'like', '%' . $request->buscar . '%');
+    if ($request->has('search') && $request->search) {
+        $query->where('titulo', 'like', '%' . $request->search . '%')
+              ->orWhere('director', 'like', '%' . $request->search . '%');
     }
 
+    // Paginación de películas
     $peliculas = $query->paginate(6);
 
-    return view('peliculas.index', compact('peliculas'));
+    // Películas más visitadas, mejor valoradas, peor valoradas
+    $masVisitadas = Pelicula::orderByDesc('visitas')->take(5)->get();
+    $mejores = Pelicula::withAvg('resenas', 'puntuacion')->orderByDesc('resenas_avg_puntuacion')->take(5)->get();
+    $peores = Pelicula::withAvg('resenas', 'puntuacion')->orderBy('resenas_avg_puntuacion')->take(5)->get();
+
+    return view('peliculas.index', compact('peliculas', 'masVisitadas', 'mejores', 'peores'));
 }
+
 
     
 
@@ -47,12 +55,14 @@ class PeliculaController extends Controller
     // Paginamos las reseñas (5 por página)
     $resenas = $pelicula->resenas()->latest()->paginate(5);
 
-    return view('peliculas.show', [
-        'pelicula' => $pelicula,
-        'media' => $media,
-        'resenas' => $resenas
-    ]);
+    // Datos laterales
+    $masVisitadas = Pelicula::orderByDesc('visitas')->limit(5)->get();
+    $mejores = Pelicula::withAvg('resenas', 'puntuacion')->orderByDesc('resenas_avg_puntuacion')->limit(5)->get();
+    $peores = Pelicula::withAvg('resenas', 'puntuacion')->orderBy('resenas_avg_puntuacion')->limit(5)->get();
+
+    return view('peliculas.show', compact('pelicula', 'media', 'resenas', 'masVisitadas', 'mejores', 'peores'));
 }
+
 
 
 
