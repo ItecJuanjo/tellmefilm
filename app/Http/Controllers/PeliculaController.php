@@ -144,36 +144,46 @@ class PeliculaController extends Controller
         return redirect()->route('peliculas.index');
     }
 
-    public function masVisitadas()
+public function masVisitadas()
 {
     $peliculas = Pelicula::orderByDesc('visitas')->paginate(9);
+
     return view('peliculas.listado', [
         'titulo' => 'Más visitadas',
-        'peliculas' => $peliculas
+        'peliculas' => $peliculas,
+        'masVisitadas' => Pelicula::orderByDesc('visitas')->take(5)->get(),
+        'mejores' => Pelicula::withAvg('resenas', 'puntuacion')->orderByDesc('resenas_avg_puntuacion')->take(5)->get(),
+        'peores' => Pelicula::withAvg('resenas', 'puntuacion')->orderBy('resenas_avg_puntuacion')->take(5)->get()
     ]);
 }
 
 public function mejorValoradas()
 {
     $peliculas = Pelicula::withAvg('resenas', 'puntuacion')
-                    ->orderByDesc('resenas_avg_puntuacion')
-                    ->paginate(9);
+        ->orderByDesc('resenas_avg_puntuacion')
+        ->paginate(9);
 
     return view('peliculas.listado', [
         'titulo' => 'Mejor valoradas',
-        'peliculas' => $peliculas
+        'peliculas' => $peliculas,
+        'masVisitadas' => Pelicula::orderByDesc('visitas')->take(5)->get(),
+        'mejores' => Pelicula::withAvg('resenas', 'puntuacion')->orderByDesc('resenas_avg_puntuacion')->take(5)->get(),
+        'peores' => Pelicula::withAvg('resenas', 'puntuacion')->orderBy('resenas_avg_puntuacion')->take(5)->get()
     ]);
 }
 
 public function peorValoradas()
 {
     $peliculas = Pelicula::withAvg('resenas', 'puntuacion')
-                    ->orderBy('resenas_avg_puntuacion')
-                    ->paginate(9);
+        ->orderBy('resenas_avg_puntuacion')
+        ->paginate(9);
 
     return view('peliculas.listado', [
         'titulo' => 'Peor valoradas',
-        'peliculas' => $peliculas
+        'peliculas' => $peliculas,
+        'masVisitadas' => Pelicula::orderByDesc('visitas')->take(5)->get(),
+        'mejores' => Pelicula::withAvg('resenas', 'puntuacion')->orderByDesc('resenas_avg_puntuacion')->take(5)->get(),
+        'peores' => Pelicula::withAvg('resenas', 'puntuacion')->orderBy('resenas_avg_puntuacion')->take(5)->get()
     ]);
 }
 
