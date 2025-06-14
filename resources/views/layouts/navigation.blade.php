@@ -1,10 +1,10 @@
 <nav x-data="{ open: false }" class="bg-naranja text-white border-b border-orange-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto pl-4 pr-2 sm:pl-6 sm:pr-2 lg:pl-4 lg:pr-0">
         <div class="flex justify-between h-16">
             <div class="flex items-center gap-6">
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('home') }}">
-                        <x-application-logo class="block h-10 w-auto fill-current text-white" />
+                        <img src="{{ asset('storage/logo/logo.png') }}" alt="TellMeFilm Logo" class="h-10 w-10 mr-2">
                     </a>
                 </div>
 
