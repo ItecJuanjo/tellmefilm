@@ -10,6 +10,12 @@
 
     <!-- Cuadro de login -->
     <div class="w-full max-w-sm bg-white shadow-lg rounded-lg p-6">
+
+        @if ($errors->any())
+        <div class="mb-4 text-red-600 text-sm text-center">
+            {{ $errors->first() }}
+        </div>
+        @endif
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
